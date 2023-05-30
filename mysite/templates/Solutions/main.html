@@ -1,0 +1,73 @@
+{% load mathjax %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Soulito</title>
+    {% mathjax_scripts %}
+
+</head>
+<body>
+<h1>Stack Solutor</h1>
+<h3>Upload a resolved stack </h3>
+<div>
+    <form id = "Upload File" method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for = "course_name">Course name:</label>
+            {% for course in stack %}
+            <select name="course_name" id="course_name" >
+            <option value={{ course.course_name }} >{{ course.course_name }}</option>
+           </select>
+            {% endfor %}
+       <label for = "course_num">Course num:</label>
+        {% for course in stack %}
+        <select name="course_num" id="course_num">
+        <option value={{ course.stack_num }} >{{ course.stack_num }}</option>
+       </select>
+            {% endfor %}
+
+        <div id = "file_sec">
+           <label>File:</label>
+            {{ form.quiz }}
+        </div>
+
+        <div>
+            {% if not_valid == 1 %}
+            <h3>Not a valid file!!</h3>
+            {% endif %}
+        </div>
+
+
+      <br></br>
+     <input type="submit" name="sumbit" value="upload">
+    </form>
+</div>
+
+<div>
+    {% if form2 == 1 %}
+    <h1>Upload Unsloved Stack:</h1>
+    <form id = "Upload UN_SLOVED" method="post" action="/slove" enctype="multipart/form-data">
+                {% csrf_token %}
+
+     <label for = "course_name2">Course name:</label>
+            {% for course in stack %}
+            <select name="course_name2" id="course_name2" >
+            <option value={{ course.course_name }} >{{ course.course_name }}</option>
+           </select>
+            {% endfor %}
+       <label for = "course_num2">Course num:</label>
+        {% for course in stack %}
+        <select name="course_num2" id="course_num2">
+        <option value={{ course.stack_num }} >{{ course.stack_num }}</option>
+       </select>
+            {% endfor %}
+    <label>File:</label>
+        {{ form.unsloved }}
+
+
+       <input type="submit" name="sumbit2" value="upload2">
+
+    {% endif %}
+</div>
+</body>
+</html>
